@@ -1,0 +1,118 @@
+﻿@model IEnumerable<List>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<style >
+ 
+[type=checkbox] {
+  width: 1rem;
+  height: 1rem;
+  color: forestgreen;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  outline: 0;
+  flex-grow: 0;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  transition: background 300ms;
+  cursor: pointer;
+}
+
+
+/* Pseudo element for check styling */
+
+[type=checkbox]::before {
+  content: "";
+  color: transparent;
+  display: block;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  border: 0;
+  background-color: transparent;
+  background-size: contain;
+  box-shadow: inset 0 0 0 1px #CCD3D8;
+}
+
+
+/* Checked */
+
+[type=checkbox]:checked {
+  background-color: currentcolor;
+}
+
+[type=checkbox]:checked::before {
+  box-shadow: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E %3Cpath d='M15.88 8.29L10 14.17l-1.88-1.88a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 0 0 0-1.41c-.39-.39-1.03-.39-1.42 0z' fill='%23fff'/%3E %3C/svg%3E");
+}
+
+
+</style>
+
+<h1 style="margin-bottom:4%">Your List</h1>
+
+@using (Html.BeginForm())
+{
+    <div class="input-group">
+    @Html.TextBox("SearchByName",null,new{@class="form-control",@placeholder="Search By Name Of Task :"})
+    <input type="submit" value="Search" class="btn btn-outline-success"/>
+    <a asp-action="Create" class="btn btn-outline-primary">Add New Task</a>
+
+    </div>
+
+}
+
+<table class="table" >
+    <thead >
+        <tr>
+        <th style="color:#0d6efd">
+            @Html.DisplayNameFor(model =>model.ListId)
+            
+        </th>
+         <th style="color:#0d6efd">
+            @Html.ActionLink("Task","Index",new{ sortField="Task" ,  currentSortField=ViewBag.SortField ,  sortDirection=ViewBag.SortDirection})       
+        </th>
+        <th style="color:#0d6efd">
+            @Html.ActionLink("DateOfTask","Index",new{ sortField="DateOfTask" ,  currentSortField=ViewBag.SortField ,  sortDirection=ViewBag.SortDirection})       
+        
+        </th>
+         <th style="color:#0d6efd">
+             @Html.ActionLink("TimeOfTask","Index",new{ sortField="TimeOfTask" ,  currentSortField=ViewBag.SortField ,  sortDirection=ViewBag.SortDirection})       
+
+        </th>
+         <th style="color:#0d6efd">
+           @* Edit/Delete*@
+        </th>
+        </tr>
+    </thead>
+    <tbody>
+    <!--loop for all item in list -->
+    @foreach (var item in Model){
+    <tr>
+    <td>
+        @Html.DisplayFor(modelitem=>item.ListId)
+    </td>
+        <td>
+        @Html.DisplayFor(modelitem=>item.Task)
+    </td>
+        <td>
+        @Html.DisplayFor(modelitem=>item.DateOfTask)
+    </td>
+    <td>
+        @Html.DisplayFor(modelitem=>item.TimeOfTask)
+    </td>
+    <td style="margin: 20px 12px 20px 12px">
+    @Html.ActionLink("Edit","Edit", new {id = item.ListId}) <!--The first parameter is value display, a second action-->
+    @Html.ActionLink("Delete","Delete", new {id = item.ListId},
+        new {onclick ="return confirm ('Are you sure you want to delete this task ?')"}) <!--The first parameter is value display, a second action-->
+    <input type="checkbox" />
+    
+    </td>
+    </tr>
+    }
+    </tbody>
+</table>
+

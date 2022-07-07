@@ -1,0 +1,35 @@
+﻿@model List
+@{
+ ViewBag.Title =Model != null ? "Edit" : "Create";
+}
+
+<h2>@ViewBag.Title Task</h2>
+
+<form asp-action=@ViewBag.Title>
+
+    <div asp-validation-summary="All"></div>
+
+    <div class="col-lg-3">
+@*    <label asp-for="ListId" class="control-label"></label>
+    <input asp-for="ListId" class="form-control" readonly />*@
+
+
+    <label asp-for="Task" class="control-label"></label>
+    <input asp-for="Task" class="form-control" />
+    </div>
+
+    <div class="col-lg-2">
+    <label asp-for="DateOfTask" class="control-label"></label>
+    <input asp-for="DateOfTask" class="form-control" type="date" />
+
+    <label asp-for="TimeOfTask" class="control-label"></label>
+    <input asp-for="TimeOfTask" class="form-control" />
+    </div>
+    
+   <div  class="input-group" style="margin-top:10px" >
+    <input type="submit" value="Save" class="btn btn-light" onMouseOver="this.style.color='#228b22'"  onMouseOut="this.style.color='#444444'"   style='font-weight:bold;'/>
+    <a asp-action="Index" class="btn btn-light" onMouseOver="this.style.color='#cc0000'"  onMouseOut="this.style.color='#444444'"   style='font-weight:bold;'>Cancel</a>
+
+    </div>
+    
+</form>
